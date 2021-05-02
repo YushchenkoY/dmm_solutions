@@ -1,12 +1,12 @@
 import { galleryReducer } from './galleryReducer';
-import { imageReducer } from './imageReducer'
+import { modalDetailsReducer } from './modalDetailsReducer'
 import { commentsReducer } from './commentsReducer';
 import { combineReducers } from "redux";
 
 const rootReducer = combineReducers({
     gallery: galleryReducer,
-    image: imageReducer,
-    comment: commentsReducer
+    modal: modalDetailsReducer,
+    // comment: commentsReducer
 })
 
 export default rootReducer;

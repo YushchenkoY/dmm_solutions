@@ -2,6 +2,7 @@ import { createStore, applyMiddleware } from 'redux'
 import createSagaMiddleware, { Task } from 'redux-saga'
 import rootReducer from './reducers/rootReducer';
 import rootSaga from './saga/rootSaga'
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 
 
@@ -10,9 +11,7 @@ import rootSaga from './saga/rootSaga'
     let storeRedux = createStore(
         rootReducer,
         // @ts-ignore
-        applyMiddleware(sagaMiddleware),
-        // @ts-ignore
-        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+        composeWithDevTools(applyMiddleware(sagaMiddleware))
         );
     
     sagaMiddleware.run(rootSaga);

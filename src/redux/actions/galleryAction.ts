@@ -10,6 +10,11 @@ export const COMMENT_FETCHING = 'COMMENT_FETCHING';
 export const COMMENT_SUCCESS = 'COMMENT_SUCCESS';
 export const COMMENT_ERROR = 'COMMENT_ERROR';
 
+export const MODAL_DETAILS_FETCHING = 'MODAL_DETAILS_FETCHING';
+export const MODAL_DETAILS_SUCCESS = 'MODAL_DETAILS_SUCCESS';
+export const MODAL_DETAILS_ERROR = 'MODAL_DETAILS_ERROR';
+
+
 export const SEND_COMMENT_REQ = 'SEND_COMMENT_REQ';
 export const SEND_COMMENT_SUCCESS = 'SEND_COMMENT_SUCCESS';
 export const SEND_COMMENT_ERROR = 'SEND_COMMENT_ERROR';
@@ -23,10 +28,10 @@ export function fetchingGallery() {
         payload: ''
     }
 };
-export function successGallery(data_gallery: any) {
+export function successGallery(data: any) {
     return {
         type: GALLERY_SUCCESS,
-        payload: data_gallery
+        payload: data
     }
 };
 export function errorGallery() {
@@ -43,10 +48,10 @@ export function fetchingImage(image_id: string) {
         payload: image_id
     }
 };
-export function successImage(data_image: any) {
+export function successImage(data: any) {
     return {
         type: IMAGE_SUCCESS,
-        payload: data_image
+        payload: data
     }
 };
 export function errorImage() {
@@ -63,15 +68,35 @@ export function fetchingComment(image_id: string) {
         payload: image_id
     }
 };
-export function successComment(data_comment: any) {
+export function successComment(data: any) {
     return {
         type: COMMENT_SUCCESS,
-        payload: data_comment
+        payload: data
     }
 };
 export function errorComment() {
     return {
         type: COMMENT_ERROR,
+        payload: ''
+    }
+}
+
+// MODAL_DETAILS 
+export function fetchingModalDetails(image_id: string) {
+    return {
+        type: MODAL_DETAILS_FETCHING,
+        payload: image_id
+    }
+};
+export function successModalDetails(data: any) {
+    return {
+        type: MODAL_DETAILS_SUCCESS,
+        payload: data
+    }
+};
+export function errorModalDetails() {
+    return {
+        type: MODAL_DETAILS_ERROR,
         payload: ''
     }
 }

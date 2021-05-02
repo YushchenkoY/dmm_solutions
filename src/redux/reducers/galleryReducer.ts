@@ -1,8 +1,12 @@
+import { IAction, IGalleryState } from '../../types';
 import { GALLERY_FETCHING, GALLERY_SUCCESS, GALLERY_ERROR} from '../actions/galleryAction'
 
+const initialState: IGalleryState = {
+    isloading: false,
+    data: [],
+};
 
-// @ts-ignore
-export const galleryReducer = (state, action) => {
+export const galleryReducer = (state = initialState, action: IAction) => {
     switch (action.type) {
         case GALLERY_FETCHING:
             return { ...state, isloading: true };

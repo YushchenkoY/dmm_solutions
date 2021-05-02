@@ -7,8 +7,7 @@ function* gallerySaga(action) {
     const url = `https://tzfrontend.herokuapp.com/images/`;
             // @ts-ignore
     const response = yield axios.get(url);
-
-    yield put(successGallery(response.data_gallery));
+    yield put(successGallery(response.data));
 }
 
 export default gallerySaga;
