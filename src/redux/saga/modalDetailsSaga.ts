@@ -1,7 +1,7 @@
 import { put } from 'redux-saga/effects';
 import axios from 'axios';
-import { fetchingImage, fetchingModalDetails, successComment, successImage} from '../actions/galleryAction';
-import { IAction } from '../../types';
+import { sendCommentSuccess, successComment, successImage} from '../actions/galleryAction';
+import { IAction, Comment } from '../../types';
 
 function* modalDetailsSaga(action: IAction) {
     // @ts-ignore
@@ -17,10 +17,29 @@ function* modalDetailsSaga(action: IAction) {
     const responseComment = yield axios.get(url_2);
 
     yield put(successComment(responseComment.data));
-    console.log(responseComment)
 
 
+    const url = ` https://tzfrontend.herokuapp.com/comments/add/`;
+    // @ts-ignore
+    const responseNewComment: Comment = yield axios.post(url, {
+            // @ts-ignore
+        image_id: +action.payload.image_id,
+            // @ts-ignore
+        name: action.payload.name,
+            // @ts-ignore
+        description: action.payload.description,
+    }, {
+        method: 'POST',
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Content-Type': 'application/json'
+        }
+    });
+    console.log('saga run')
+    yield put(sendCommentSuccess(responseNewComment));
+
+    
 }
 
-export default modalDetailsSaga;
 
+export default modalDetailsSaga;

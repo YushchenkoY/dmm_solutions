@@ -28,8 +28,7 @@ export interface IModalState {
         comments: Comment[]
     },
 }
-
 export interface State {
     gallery: IGalleryState,
-    modal: IModalState
+    modal: IModalState,
 }

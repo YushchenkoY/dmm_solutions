@@ -10,7 +10,6 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 
     let storeRedux = createStore(
         rootReducer,
-        // @ts-ignore
         composeWithDevTools(applyMiddleware(sagaMiddleware))
         );
     

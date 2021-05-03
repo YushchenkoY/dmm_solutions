@@ -102,13 +102,13 @@ export function errorModalDetails() {
 }
 
 // SEND COMMENT 
-export function sendCommentRequest(image_id: string, name: string, body: string) {
+export function sendCommentRequest(image_id: string, name: string, description: string) {
     return {
         type: SEND_COMMENT_REQ,
         payload: {
             image_id: image_id,
             name: name,
-            body: body
+            bodescriptiondy: description
         }
     }
 };
