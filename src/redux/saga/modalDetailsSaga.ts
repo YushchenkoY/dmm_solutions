@@ -1,6 +1,6 @@
 import { put } from 'redux-saga/effects';
 import axios from 'axios';
-import { sendCommentSuccess, successComment, successImage} from '../actions/galleryAction';
+import { sendCommentRequest, successComment, successImage } from '../actions/galleryAction';
 import { IAction, Comment } from '../../types';
 
 function* modalDetailsSaga(action: IAction) {
@@ -21,13 +21,16 @@ function* modalDetailsSaga(action: IAction) {
 
     const url = ` https://tzfrontend.herokuapp.com/comments/add/`;
     // @ts-ignore
-    const responseNewComment: Comment = yield axios.post(url, {
+    const response = yield axios.post(url, {
+
+        body: {
             // @ts-ignore
-        image_id: +action.payload.image_id,
+            name: action.payload.name,
             // @ts-ignore
-        name: action.payload.name,
+            description: action.payload.description,
             // @ts-ignore
-        description: action.payload.description,
+            image_id: +action.payload.image_id
+        }
     }, {
         method: 'POST',
         headers: {
@@ -36,9 +39,10 @@ function* modalDetailsSaga(action: IAction) {
         }
     });
     console.log('saga run')
-    yield put(sendCommentSuccess(responseNewComment));
+    // @ts-ignore
+    yield put(sendCommentRequest(response));
 
-    
+
 }
 
 

@@ -1,9 +1,8 @@
 import './App.css';
-import Title from './components/Title'
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { IGalleryState, IModalState, State } from './types';
-import { GALLERY_FETCHING, MODAL_DETAILS_FETCHING, sendCommentSuccess } from './redux/actions/galleryAction';
+import { GALLERY_FETCHING, MODAL_DETAILS_FETCHING, sendCommentRequest } from './redux/actions/galleryAction';
 
 function App() {
   const dispatch = useDispatch();
@@ -21,46 +20,48 @@ function App() {
   const handleButtonClick = (e) => {
     e.preventDefault();
     // @ts-ignore
-    dispatch(sendCommentSuccess( name, description));
+    dispatch(sendCommentRequest( name, description));
     setName('')
     setDescription('')
-};
-
-
-
+  };
 
   return (
     <div className="App">
-      <Title />
-      <div className='galleryWrapper'>
+      <h1 className="Title">Test App</h1>
+      <div className='galleryWrapper '>
         {gallery.map(item => {
           const linkToImage = item.src
           const id = item.image_id
           return (
-            <div onClick={() => dispatch({ type: MODAL_DETAILS_FETCHING, payload: id })}>
+            <div className='gallery_item' onClick={() => dispatch({ type: MODAL_DETAILS_FETCHING, payload: id })}>
               <img src={linkToImage} />
             </div>
           )
         })}
       </div>
       <div className='modal'>
-        <img src={modalDetails.linkToImage.src} />
-        <div>
-          <h3>Comments</h3>
-          {modalDetails.comments.map(item => {
-            return (
-              <div>
-                <div>{item.name}</div>
-                <div>{item.description}</div>
-              </div>
-            )
-          })}
-          <form>
-            <textarea value={name} onChange={(e) => setName(e.target.value)} />
-            <textarea value={description} onChange={(e) => setDescription(e.target.value)} />
-            <button onClick={handleButtonClick}>Send</button>
-          </form>
+    <button  className='close' onClick={()=>{}}></button>
+
+        <div className='modal_data'>
+          <img className='modal_data__img'src={modalDetails.linkToImage.src} />
+          <div className='modal_data__comment comment_wrapper'>
+            {modalDetails.comments.map(item => {
+              return (
+                <div className='comment'>
+                  <div className='comment_name'>{item.name}</div>
+                  <div className='comment_description'>{item.description}</div>
+                </div>
+              )
+            })}
+          </div>
         </div>
+        <form>
+          <textarea value={name} onChange={(e) => setName(e.target.value)} />
+          <textarea value={description} onChange={(e) => setDescription(e.target.value)} />
+          <button onClick={handleButtonClick}>Add a comment</button>
+
+        </form>
+
       </div>
     </div>
   );
