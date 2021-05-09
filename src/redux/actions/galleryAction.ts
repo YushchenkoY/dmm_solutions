@@ -24,10 +24,10 @@ export const SEND_COMMENT_ERROR = 'SEND_COMMENT_ERROR';
 // GALLERY
 export function fetchingGallery() {
     return {
-        type: GALLERY_FETCHING,
-        payload: ''
+        type: GALLERY_FETCHING
     }
-};
+}
+
 export function successGallery(data: any) {
     return {
         type: GALLERY_SUCCESS,
@@ -48,10 +48,13 @@ export function fetchingImage(image_id: string) {
         payload: image_id
     }
 };
-export function successImage(data: any) {
+export function successImage(imageId: number, bigImageUrl: string) {
     return {
         type: IMAGE_SUCCESS,
-        payload: data
+        payload: {
+            imageId,
+            bigImageUrl,
+        }
     }
 };
 export function errorImage() {
@@ -61,7 +64,7 @@ export function errorImage() {
     }
 }
 
-// COMMENT 
+// COMMENT
 export function fetchingComment(image_id: string) {
     return {
         type: COMMENT_FETCHING,
@@ -81,11 +84,11 @@ export function errorComment() {
     }
 }
 
-// MODAL_DETAILS 
-export function fetchingModalDetails(image_id: string) {
+// MODAL_DETAILS
+export function fetchingModalDetails(imageId: number) {
     return {
         type: MODAL_DETAILS_FETCHING,
-        payload: image_id
+        payload: imageId
     }
 };
 export function successModalDetails(data: any) {
@@ -101,14 +104,14 @@ export function errorModalDetails() {
     }
 }
 
-// SEND COMMENT 
-export function sendCommentRequest(image_id: string, name: string, description: string) {
+// SEND COMMENT
+export function sendCommentRequest(imageId: number, name: string, description: string) {
     return {
         type: SEND_COMMENT_REQ,
         payload: {
-            image_id: image_id,
+            imageId: imageId,
             name: name,
-            bodescriptiondy: description
+            description: description
         }
     }
 };

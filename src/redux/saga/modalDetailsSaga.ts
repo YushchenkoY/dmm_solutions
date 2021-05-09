@@ -1,49 +1,39 @@
+import { Action } from 'redux';
 import { put } from 'redux-saga/effects';
 import axios from 'axios';
-import { sendCommentRequest, successComment, successImage } from '../actions/galleryAction';
-import { IAction, Comment } from '../../types';
+import { sendCommentSuccess, successComment, successImage } from '../actions/galleryAction';
 
-function* modalDetailsSaga(action: IAction) {
-    // @ts-ignore
-    const url_1 = ` https://tzfrontend.herokuapp.com/images/${action.payload}/`;
-    // @ts-ignore
-    const responseImage = yield axios.get(url_1);
-    yield put(successImage(responseImage.data.src));
+export function* modalDetailsSaga(action: {type: string; payload: number;}) {
+  const url_1 = `https://tzfrontend.herokuapp.com/images/${ action.payload }/`;
+  // @ts-ignore
+  const responseImage = yield axios.get(url_1);
+  yield put(successImage(action.payload, responseImage.data.src));
 
 
-    // @ts-ignore
-    const url_2 = `https://tzfrontend.herokuapp.com/comments/${action.payload}`;
-    // @ts-ignore
-    const responseComment = yield axios.get(url_2);
+  // @ts-ignore
+  const url_2 = `https://tzfrontend.herokuapp.com/comments/${ action.payload }`;
+  // @ts-ignore
+  const responseComment = yield axios.get(url_2);
 
-    yield put(successComment(responseComment.data));
-
-
-    const url = ` https://tzfrontend.herokuapp.com/comments/add/`;
-    // @ts-ignore
-    const response = yield axios.post(url, {
-
-        body: {
-            // @ts-ignore
-            name: action.payload.name,
-            // @ts-ignore
-            description: action.payload.description,
-            // @ts-ignore
-            image_id: +action.payload.image_id
-        }
-    }, {
-        method: 'POST',
-        headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Content-Type': 'application/json'
-        }
-    });
-    console.log('saga run')
-    // @ts-ignore
-    yield put(sendCommentRequest(response));
+  if (!Array.isArray(responseComment.data)) {
+      yield put(successComment([]));
+  } else {
+      yield put(successComment(responseComment.data));
+  }
 
 
 }
+export function* addCommentSaga(action: {type: string; payload: any;}) {
+  const url = `https://tzfrontend.herokuapp.com/comments/add/`;
+  // @ts-ignore
+  const response = yield axios.post(url, {
+      name: action.payload.name,
+      description: action.payload.description,
+      image_id: +action.payload.imageId
+    }
+  );
 
+  yield put(sendCommentSuccess(response.data));
 
-export default modalDetailsSaga;
+}
+

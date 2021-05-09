@@ -1,4 +1,4 @@
-import { IAction } from './../../types';
+import { IAction } from '../../types';
 import {put} from 'redux-saga/effects';
 import axios from 'axios';
 import { successGallery } from '../actions/galleryAction';
